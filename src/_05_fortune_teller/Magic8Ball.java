@@ -7,30 +7,59 @@ package _05_fortune_teller;
 
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 public class Magic8Ball {
 
 	// 1. Make a main method that includes all the steps below….
+	public static void main (String [] args) {
 
-	// 2. Make a variable that will hold a random number and put a random number into this variable using "new Random().nextInt(4)"
+		// 2. Make a variable that will hold a random number and put a random number into this variable using "new Random().nextInt(4)"
 
-	// 3. Print out this variable
+		int randomNumber = new Random().nextInt(4);
 
-	// 4. Get the user to enter a question for the 8 ball
+		// 3. Print out this variable
 
-	// 5. If the random number is 0
+		System.out.println(randomNumber);
 
-	// -- tell the user "Yes"
+		// 4. Get the user to enter a question for the 8 ball
 
-	// 6. If the random number is 1
+		JOptionPane.showInputDialog("Ask the magic 8 ball a question.");
 
-	// -- tell the user "No"
+		// 5. If the random number is 0
 
-	// 7. If the random number is 2
+		if(randomNumber == 0) {
 
-	// -- tell the user "Maybe you should ask Google?"
+			// -- tell the user "Yes"
+			JOptionPane.showMessageDialog(null, "Yes");
 
-	// 8. If the random number is 3
+		}
+		// 6. If the random number is 1
 
-	// -- write your own answer
+		if(randomNumber == 1) {
 
+			// -- tell the user "No"
+			JOptionPane.showMessageDialog(null, "No");
+
+		}
+
+
+		// 7. If the random number is 2
+		if(randomNumber == 2) {
+
+			// -- tell the user "Maybe you should ask Google?"
+			JOptionPane.showMessageDialog(null, "Maybe you should ask google?");
+
+		}
+
+		// 8. If the random number is 3
+		if(randomNumber == 3) {
+
+			// -- write your own answer
+			JOptionPane.showMessageDialog(null, "Perhaps");
+
+		}
+
+
+	}
 }
