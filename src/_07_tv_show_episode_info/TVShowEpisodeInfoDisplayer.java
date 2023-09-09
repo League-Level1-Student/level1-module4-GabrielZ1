@@ -1,6 +1,9 @@
 package _07_tv_show_episode_info;
 
 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -8,20 +11,55 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-public class TVShowEpisodeInfoDisplayer {
-	
+public class TVShowEpisodeInfoDisplayer implements ActionListener {
+
+	JFrame frame = new JFrame();
+	JTextField showInput = new JTextField();
+	JButton submitButton = new JButton();
+
 	public TVShowEpisodeInfoDisplayer() {
-		
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setTitle("TV Show Info");
+
+		showInput.setColumns(20);
+
+		submitButton.addActionListener(this);
+		submitButton.setText("Submit");
+
+		frame.setLayout(new FlowLayout());
+
+		frame.add(showInput);
+		frame.add(submitButton);
+
+		frame.pack();
+
+		frame.setVisible(true);
+
+
 	}
 
-	
-	
-	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 
-/////////////////////////DO NOT MODIFY ANY CODE BELOW THIS LINE//////////////////////////////////////////
-	
+		String showInputAsString = showInput.getText();
+
+		if(submitButton == e.getSource()) {
+			JOptionPane.showMessageDialog(null, getShowEpisodeData(showInputAsString));
+		}
+
+	}
+
+
+	/////////////////////////DO NOT MODIFY ANY CODE BELOW THIS LINE//////////////////////////////////////////
+
 	/**
 	 * Searches the tvmaze.com api for season and episode information about
 	 * a chosen show and returns the information in a String
@@ -35,11 +73,11 @@ public class TVShowEpisodeInfoDisplayer {
 		if(id < 0) {
 			return "";
 		}
-		
+
 		int totalSeasons = 0;
 		int totalEpisodes = 0;
 		int[] episodes = null;
-		
+
 		try {
 			URL url = new URL("https://api.tvmaze.com/shows/"+id+"/seasons");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -66,12 +104,15 @@ public class TVShowEpisodeInfoDisplayer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		String res = showTitle + "\nTotal Seasons: " + totalSeasons + "\nTotal Episodes: " + totalEpisodes + '\n';
 		for(int i = 0; i < totalSeasons; i++) {
 			res += "Season " + (i + 1) +": " + (episodes[i] > -1 ? episodes[i] : "?") + " episodes\n";
 		}
-		
+
 		return res;
 	}
+
+
+
 }

@@ -1,13 +1,15 @@
 package _06_calculator;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Calculator {
+public class Calculator implements ActionListener {
 
 	JFrame frame = new JFrame();
 
@@ -21,6 +23,7 @@ public class Calculator {
 
 	JLabel result = new JLabel();
 
+	double finalAnswer;
 
 	public double add (double num1, double num2) {
 		double sum = num1+num2;
@@ -54,6 +57,12 @@ public class Calculator {
 		input2.setColumns(15);
 
 
+		addingButton.addActionListener(this);
+		subtractingButton.addActionListener(this);
+		multiplyingButton.addActionListener(this);
+		dividingButton.addActionListener(this);
+
+
 		addingButton.setText("add");
 		subtractingButton.setText("subtract");
 		multiplyingButton.setText("multiply");
@@ -70,32 +79,56 @@ public class Calculator {
 		frame.add(dividingButton);
 
 
-		
-		
-		
-
-//put button functionality here
 
 
-
-
-
-
-
-
-
-
-
-		result.setFont(result.getFont().deriveFont(50.0f));
+		result.setFont(result.getFont().deriveFont(40.0f));
 		result.setHorizontalAlignment(JLabel.CENTER);
-		//result.setText(answer);   this is going to be to set the final label to the answer
 
 
 		frame.add(result);
 
+
 		frame.setSize(400,200);
 
 		frame.setVisible(true);
+
+	}
+
+	//this is what is run when a button is clicked
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton buttonPressed = (JButton) e.getSource();
+
+		String input1AsString = input1.getText();
+		String input2AsString = input2.getText();
+
+		Double input1AsDouble = Double.parseDouble(input1AsString);
+		Double input2AsDouble = Double.parseDouble(input2AsString);
+
+
+		if(addingButton == buttonPressed) {
+			finalAnswer = add(input1AsDouble, input2AsDouble);
+
+		}
+		if(subtractingButton == buttonPressed) {
+			finalAnswer = subtract(input1AsDouble, input2AsDouble);
+
+		}
+		if(multiplyingButton == buttonPressed) {
+			finalAnswer = multiply(input1AsDouble, input2AsDouble);
+
+		}
+		if(dividingButton == buttonPressed) {
+			finalAnswer = divide(input1AsDouble, input2AsDouble);
+
+		}
+
+		String finalAnswerAsString = Double.toString(finalAnswer);
+
+		result.setText(finalAnswerAsString);
+
 
 	}
 }
